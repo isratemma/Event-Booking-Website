@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from '../api';
 import {
   MdLocationOn, MdCalendarToday, MdAccessTime,
   MdEventSeat, MdCategory, MdArrowBack,
@@ -18,7 +18,7 @@ const EventDetail = () => {
   useEffect(() => {
     const fetchEvent = async () => {
       try {
-        const { data } = await axios.get(`/api/events/${id}`);
+        const { data } = await api.get(`/api/events/${id}`);
         setEvent(data);
       } catch {
         setError('Event not found or server error.');

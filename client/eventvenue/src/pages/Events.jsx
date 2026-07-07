@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import axios from 'axios';
+import api from '../api';
 import { MdLocationOn, MdCalendarToday, MdAccessTime, MdSearch, MdFilterList } from 'react-icons/md';
 import Footer from '../components/Footer';
 import { HiArrowRight } from 'react-icons/hi';
@@ -33,7 +33,7 @@ const Events = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const { data } = await axios.get('/api/events');
+        const { data } = await api.get('/events');
         setEvents(data);
       } catch {
         setError('Failed to load events.');

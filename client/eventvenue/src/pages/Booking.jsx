@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import axios from 'axios';
+import api from '../api';
 import {
   MdLocationOn, MdCalendarToday, MdAccessTime,
   MdEventSeat, MdArrowBack
@@ -24,7 +24,7 @@ const Booking = () => {
       navigate('/login', { state: { message: 'Please login to book an event.' } });
       return;
     }
-    axios.get(`/api/events/${id}`)
+    api.get(`/api/events/${id}`)
       .then(({ data }) => setEvent(data))
       .catch(() => setError('Event not found.'))
       .finally(() => setLoading(false));
@@ -34,9 +34,7 @@ const Booking = () => {
     setBooking(true);
     setError('');
     try {
-      const res = await axios.post('/api/bookings', { eventId: id }, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
+      const res = await api.post('/bookings', { eventId: id });
       navigate('/payment-success', {
         state: {
           eventTitle: event?.title,

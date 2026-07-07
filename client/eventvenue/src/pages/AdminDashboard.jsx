@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from '../api';
 import { MdEventNote, MdBookOnline, MdDelete,
   MdEdit, MdAdd, MdAttachMoney, MdCheckCircle as MdCheck, MdError, MdClose
 } from 'react-icons/md';
@@ -38,8 +38,6 @@ const AdminDashboard = () => {
   };
   const removeToast = (id) => setToasts(prev => prev.filter(t => t.id !== id));
 
-  const headers = { Authorization: `Bearer ${token}` };
-
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
     const storedToken = localStorage.getItem('token');
@@ -48,11 +46,10 @@ const AdminDashboard = () => {
     if (parsed.role !== 'admin') { navigate('/login'); return; }
     setUser(parsed);
 
-    const h = { Authorization: `Bearer ${storedToken}` };
     setLoading(true);
     Promise.all([
-      axios.get('/api/events', { headers: h }),
-      axios.get('/api/bookings', { headers: h }),
+      api.get('/events'),
+      api.get('/bookings'),
     ]).then(([eventsRes, bookingsRes]) => {
       setEvents(eventsRes.data);
       setBookings(bookingsRes.data);
@@ -63,18 +60,16 @@ const AdminDashboard = () => {
 
   const handleDeleteEvent = async (id) => {
     if (!window.confirm('Delete this event?')) return;
-    const h = { Authorization: `Bearer ${localStorage.getItem('token')}` };
     try {
-      await axios.delete(`/api/events/${id}`, { headers: h });
+      await api.delete(`/api/events/${id}`);
       setEvents(prev => prev.filter(e => e._id !== id));
       toast('Event deleted successfully.');
     } catch { toast('Failed to delete event.', 'error'); }
   };
 
   const handleConfirmBooking = async (id) => {
-    const h = { Authorization: `Bearer ${localStorage.getItem('token')}` };
     try {
-      await axios.put(`/api/bookings/${id}/confirm`, {}, { headers: h });
+      await api.put(`/api/bookings/${id}/confirm`, {});
       setBookings(prev => prev.map(b => b._id === id ? { ...b, status: 'confirmed' } : b));
       toast('Booking confirmed successfully.');
     } catch { toast('Failed to confirm booking.', 'error'); }
@@ -82,9 +77,8 @@ const AdminDashboard = () => {
 
   const handleDeleteBooking = async (id) => {
     if (!window.confirm('Delete this booking?')) return;
-    const h = { Authorization: `Bearer ${localStorage.getItem('token')}` };
     try {
-      await axios.delete(`/api/bookings/${id}`, { headers: h });
+      await api.delete(`/api/bookings/${id}`);
       setBookings(prev => prev.filter(b => b._id !== id));
       toast('Booking deleted.');
     } catch { toast('Failed to delete booking.', 'error'); }

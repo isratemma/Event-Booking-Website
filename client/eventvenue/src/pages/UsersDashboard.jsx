@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from '../api';
 import { MdBookOnline, MdLocationOn, MdCalendarToday } from 'react-icons/md';
 import { HiTicket } from 'react-icons/hi';
 
@@ -25,9 +25,7 @@ const UserDashboard = () => {
     const parsedUser = JSON.parse(storedUser);
     setUser(parsedUser);
 
-    axios.get(`${API}/api/bookings/my`, {
-      headers: { Authorization: `Bearer ${token}` }
-    })
+    api.get('/bookings/my')
       .then(({ data }) => setBookings(data))
       .catch(err => {
         const msg = err.response?.data?.message || err.message;

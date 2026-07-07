@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from '../api';
 import { MdEventNote, MdVisibility, MdVisibilityOff } from 'react-icons/md';
 import { signInWithPopup } from 'firebase/auth';
 import { auth, googleProvider } from '../firebase';
@@ -31,7 +31,7 @@ const Register = () => {
 
     setLoading(true);
     try {
-      await axios.post('/api/auth/register', {
+      await api.post('/auth/register', {
         name: form.name,
         email: form.email,
         password: form.password,
@@ -51,7 +51,7 @@ const Register = () => {
       const result = await signInWithPopup(auth, googleProvider);
       const { displayName, email, uid, photoURL } = result.user;
 
-      const { data } = await axios.post('/api/auth/google', {
+      const { data } = await api.post('/auth/google', {
         name: displayName,
         email,
         googleId: uid,

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import axios from 'axios';
+import api from '../api';
 import { MdEventNote, MdVisibility, MdVisibilityOff } from 'react-icons/md';
 import { signInWithPopup } from 'firebase/auth';
 import { auth, googleProvider } from '../firebase';
@@ -25,7 +25,7 @@ const Login = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const { data } = await axios.post('/api/auth/login', {
+      const { data } = await api.post('/auth/login', {
         email: form.email,
         password: form.password,
       });
@@ -54,7 +54,7 @@ const Login = () => {
       const result = await signInWithPopup(auth, googleProvider);
       const { displayName, email, uid, photoURL } = result.user;
 
-      const { data } = await axios.post('/api/auth/google', {
+      const { data } = await api.post('/auth/google', {
         name: displayName,
         email,
         googleId: uid,
