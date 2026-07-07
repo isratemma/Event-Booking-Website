@@ -33,6 +33,11 @@ app.use('/api/auth', authRoutes);
 app.use('/api/events', eventRoutes);
 app.use('/api/bookings', bookingRoutes);
 
+// Health check
+app.get('/', (req, res) => {
+  res.json({ status: 'ok', message: 'EventVenue API is running 🎉' });
+});
+
 console.log('Connecting to MongoDB...');
 console.log('URI prefix:', MONGODB_URI.substring(0, 25));
 
