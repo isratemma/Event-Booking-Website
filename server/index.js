@@ -4,6 +4,18 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 dotenv.config();
 
+// Fail fast if critical env vars are missing
+if (!process.env.MONGODB_URI) {
+  console.error('FATAL: MONGODB_URI is not set. Check your environment variables on Render.');
+  process.exit(1);
+}
+if (!process.env.JWT_SECRET) {
+  console.error('FATAL: JWT_SECRET is not set.');
+  process.exit(1);
+}
+
+console.log('MONGODB_URI starts with:', process.env.MONGODB_URI.substring(0, 20));
+
 const authRoutes = require('./routes/auth');
 const eventRoutes = require('./routes/events.js');
 const bookingRoutes = require('./routes/booking.js');
