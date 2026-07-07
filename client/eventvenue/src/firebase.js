@@ -2,12 +2,12 @@ import { initializeApp } from 'firebase/app';
 import { getAuth, GoogleAuthProvider } from 'firebase/auth';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyA3R4CyOH3EoeCEJyfi-vxFOE5uJzgDpyI",
-  authDomain: "event-venue-7eb47.firebaseapp.com",
-  projectId: "event-venue-7eb47",
-  storageBucket: "event-venue-7eb47.firebasestorage.app",
-  messagingSenderId: "719019146352",
-  appId: "1:719019146352:web:3a603de959bdc9125888b5"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
 const app = initializeApp(firebaseConfig);

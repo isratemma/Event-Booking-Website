@@ -7,11 +7,13 @@ if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
 }
 
-const MONGODB_URI = process.env.MONGODB_URI || "mongodb+srv://EventVenue:EventVenue@cluster0.l7zck31.mongodb.net/EventVenue?appName=Cluster0";
-const JWT_SECRET = process.env.JWT_SECRET || "eventvenue_super_secret_key_2026";
+const MONGODB_URI = process.env.MONGODB_URI;
+const JWT_SECRET = process.env.JWT_SECRET;
 const FRONTEND_URL = process.env.FRONTEND_URL || "https://event-booking-website-57ok.vercel.app";
 
-// Make available globally
+if (!MONGODB_URI) throw new Error('MONGODB_URI env variable is required');
+if (!JWT_SECRET) throw new Error('JWT_SECRET env variable is required');
+
 process.env.JWT_SECRET = JWT_SECRET;
 
 const authRoutes = require('./routes/auth');
