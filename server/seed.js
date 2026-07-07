@@ -207,7 +207,7 @@ const seed = async () => {
         description: 'An intimate beachside wedding ceremony with sunset views, barefoot cocktails, and ocean breeze.',
         date: new Date('2026-11-08'), time: '5:30 PM', venue: 'Malibu Beach Club', location: 'Malibu',
         price: 200, ticketPrice: 200, availableSeats: 100, totalSeats: 100, bookedSeats: 0, ticketsSold: 0,
-        category: 'Wedding', imageUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800',
+        category: 'Wedding', imageUrl: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800',
         organizer: admin._id, isActive: true,
       },
       {
