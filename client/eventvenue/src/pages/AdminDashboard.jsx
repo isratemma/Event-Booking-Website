@@ -61,7 +61,7 @@ const AdminDashboard = () => {
   const handleDeleteEvent = async (id) => {
     if (!window.confirm('Delete this event?')) return;
     try {
-      await api.delete(`/api/events/${id}`);
+      await api.delete(`/events/${id}`);
       setEvents(prev => prev.filter(e => e._id !== id));
       toast('Event deleted successfully.');
     } catch { toast('Failed to delete event.', 'error'); }
@@ -69,7 +69,7 @@ const AdminDashboard = () => {
 
   const handleConfirmBooking = async (id) => {
     try {
-      await api.put(`/api/bookings/${id}/confirm`, {});
+      await api.put(`/bookings/${id}/confirm`, {});
       setBookings(prev => prev.map(b => b._id === id ? { ...b, status: 'confirmed' } : b));
       toast('Booking confirmed successfully.');
     } catch { toast('Failed to confirm booking.', 'error'); }
@@ -78,7 +78,7 @@ const AdminDashboard = () => {
   const handleDeleteBooking = async (id) => {
     if (!window.confirm('Delete this booking?')) return;
     try {
-      await api.delete(`/api/bookings/${id}`);
+      await api.delete(`/bookings/${id}`);
       setBookings(prev => prev.filter(b => b._id !== id));
       toast('Booking deleted.');
     } catch { toast('Failed to delete booking.', 'error'); }

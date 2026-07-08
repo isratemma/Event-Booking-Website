@@ -18,7 +18,7 @@ const EventDetail = () => {
   useEffect(() => {
     const fetchEvent = async () => {
       try {
-        const { data } = await api.get(`/api/events/${id}`);
+        const { data } = await api.get(`/events/${id}`);
         setEvent(data);
       } catch {
         setError('Event not found or server error.');
