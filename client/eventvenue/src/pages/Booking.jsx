@@ -24,7 +24,7 @@ const Booking = () => {
       navigate('/login', { state: { message: 'Please login to book an event.' } });
       return;
     }
-    api.get(`/api/events/${id}`)
+    api.get(`/events/${id}`)
       .then(({ data }) => setEvent(data))
       .catch(() => setError('Event not found.'))
       .finally(() => setLoading(false));
