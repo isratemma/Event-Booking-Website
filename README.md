@@ -10,7 +10,6 @@ A full-stack web application for discovering, browsing, and booking events. Buil
 - 🎟️ Browse and book events across 7 categories
 - 👤 User dashboard with booking history
 - 🛡️ Admin dashboard with full event and booking management
-- 📧 OTP-based email verification (via Resend)
 - 🔍 Search events by title, venue, or location
 - 📱 Fully responsive — mobile + desktop
 
